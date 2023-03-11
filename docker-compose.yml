@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    container_name: postgres
+    env_file:
+      - .env
+    ports:
+      - '5434:5432'
