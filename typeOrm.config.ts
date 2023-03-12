@@ -3,8 +3,9 @@ import { DataSource } from 'typeorm';
 
 import { ConfigService } from '@nestjs/config';
 
+import { CreateUserTodo1678534278890 } from './migrations/1678534278890-CreateUserTodo';
+import { Todo } from './src/todo/todo.entity';
 import { User } from './src/user/user.entity';
-import { CreateUser1678531939395 } from './migrations/1678531939395-CreateUser';
 
 config();
 
@@ -17,6 +18,6 @@ export default new DataSource({
 	username: configService.get('POSTGRES_USER'),
 	password: configService.get('POSTGRES_PASSWORD'),
 	database: configService.get('POSTGRES_DB'),
-	entities: [User],
-	migrations: [CreateUser1678531939395],
+	entities: [User, Todo],
+	migrations: [CreateUserTodo1678534278890],
 });
