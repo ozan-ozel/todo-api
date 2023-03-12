@@ -2,6 +2,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UserService } from '../src/user/user.service';
 import { User } from '../src/user/user.entity';
+import { Todo } from '../src/todo/todo.entity';
+import { TodoService } from '../src/todo/todo.service';
 
 export const LocalTestingModule = {
 	imports: [
@@ -9,10 +11,10 @@ export const LocalTestingModule = {
 			type: 'better-sqlite3',
 			database: ':memory:',
 			dropSchema: true,
-			entities: [ User ],
+			entities: [ User, Todo ],
 			synchronize: true,
 		}),
-		TypeOrmModule.forFeature([ User ]),
+		TypeOrmModule.forFeature([ User, Todo ]),
 	],
-	providers: [ UserService ],
+	providers: [ UserService, TodoService ],
 };
