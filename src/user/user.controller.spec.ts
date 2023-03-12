@@ -50,6 +50,7 @@ describe('UserController', () => {
 		await userController.create({
 			email: 'test@test.com',
 			password: 'test',
+			fullName: "test test"
 		});
 
 		expect(mockUserService.create).toHaveBeenCalled();

@@ -17,6 +17,7 @@ export class UserService {
 	async create(createUserDto: CreateUserDto): Promise<User> {
 		const user = new User();
 		user.email = createUserDto.email;
+		user.fullName = createUserDto.fullName;
 
 		const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUNDS ?? 10));
 		user.password = await bcrypt.hash(createUserDto.password, salt);

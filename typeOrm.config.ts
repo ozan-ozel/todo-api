@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { CreateUserTodo1678534278890 } from './migrations/1678534278890-CreateUserTodo';
 import { Todo } from './src/todo/todo.entity';
 import { User } from './src/user/user.entity';
+import { UpdateUserFullName1678636517846 } from './migrations/1678636517846-UpdateUserFullName';
 
 config();
 
@@ -19,5 +20,5 @@ export default new DataSource({
 	password: configService.get('POSTGRES_PASSWORD'),
 	database: configService.get('POSTGRES_DB'),
 	entities: [User, Todo],
-	migrations: [CreateUserTodo1678534278890],
+	migrations: [CreateUserTodo1678534278890, UpdateUserFullName1678636517846],
 });

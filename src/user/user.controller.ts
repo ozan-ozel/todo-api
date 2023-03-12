@@ -11,6 +11,8 @@ import {
 	Request,
 	UseGuards,
 	forwardRef,
+	HttpException,
+	HttpStatus,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 
@@ -31,8 +33,14 @@ export class UserController {
 	) {}
 
 	@Post()
-	async create(@Body() createUserDto: CreateUserDto): Promise<void> {
-		await this.userService.create(createUserDto);
+	async create(@Body() createUserDto: CreateUserDto): Promise<any> {
+		const user = await this.userService.create(createUserDto);
+
+		if(!user) {
+			throw new HttpException('Not allowed or non existing resources.', HttpStatus.BAD_REQUEST);
+		}
+
+		return this.authService.getToken(user);
 	}
 
 	@ApiBody({

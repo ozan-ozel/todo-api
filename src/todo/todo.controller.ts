@@ -42,12 +42,12 @@ export class TodoController {
 		return this.todoService.create(createTodoDto, req.user.id);
 	}
 
-  @ApiQuery({
-    name: "isCompleted",
-    type: String,
-    description: "optional parameter to get completed or incompleted todos",
-    required: false
-  })
+	@ApiQuery({
+		name: 'isCompleted',
+		type: String,
+		description: 'optional parameter to get completed or incompleted todos',
+		required: false,
+	})
 	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
 	@Get()
@@ -58,24 +58,38 @@ export class TodoController {
 	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
 	@Patch(':id')
-  @HttpCode(200)
-	async update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto, @Request() req) {
-    const res = await this.todoService.update(+id, req.user.id, updateTodoDto);
+	@HttpCode(200)
+	async update(
+		@Param('id') id: string,
+		@Body() updateTodoDto: UpdateTodoDto,
+		@Request() req
+	) {
+		const res = await this.todoService.update(+id, req.user.id, updateTodoDto);
 
-    if(!res?.affected) {
-      throw new HttpException('Not allowed or non existing resources.', HttpStatus.BAD_REQUEST);
-    }
+		if (!res?.affected) {
+			throw new HttpException(
+				'Not allowed or non existing resources.',
+				HttpStatus.BAD_REQUEST
+			);
+		}
+
+		return { status: 'ok' };
 	}
 
 	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
 	@Delete(':id')
-  @HttpCode(200)
+	@HttpCode(200)
 	async remove(@Param('id') id: string, @Request() req) {
 		const res = await this.todoService.remove(+id, req.user.id);
 
-    if(!res?.affected) {
-      throw new HttpException('Not allowed or non existing resources.', HttpStatus.BAD_REQUEST);
-    }
+		if (!res?.affected) {
+			throw new HttpException(
+				'Not allowed or non existing resources.',
+				HttpStatus.BAD_REQUEST
+			);
+		}
+
+		return { status: 'ok' };
 	}
 }
