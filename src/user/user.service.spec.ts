@@ -80,6 +80,7 @@ describe('create user', () => {
 		const res = await service.create({
 			email: 'test@test.com',
 			password: '123456',
+			fullName: "test",
 		});
 
 		expect(res).toBeInstanceOf(User);
@@ -91,6 +92,7 @@ describe('create user', () => {
 		const res = await service.create({
 			email: 'not_registered@test.com',
 			password: '123456',
+			fullName: "test",
 		});
 
 		expect(res).toBeNull();
